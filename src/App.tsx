@@ -1,4 +1,5 @@
-import { useState, useEffect, CSSProperties } from "react";
+import { useState, useEffect} from "react";
+import type { CSSProperties } from "react";
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 type TransportMode = "bus" | "train" | "car";
@@ -155,7 +156,7 @@ const S: Record<string, CSSProperties | ((...args: any[]) => CSSProperties)> = {
 
 // ─── COMPONENTS ──────────────────────────────────────────────────────────────
 
-function Header(): JSX.Element {
+function Header() {
   return (
     <header style={S.header as CSSProperties}>
       <div style={S.logo as CSSProperties}>
@@ -176,7 +177,7 @@ interface ModeTabsProps {
   setMode: (m: TransportMode) => void;
 }
 
-function ModeTabs({ mode, setMode }: ModeTabsProps): JSX.Element {
+function ModeTabs({ mode, setMode }: ModeTabsProps) {
   const tabs: { key: TransportMode; label: string; icon: string }[] = [
     { key: "bus",   label: "Bus",   icon: "🚌" },
     { key: "train", label: "Train", icon: "🚂" },
@@ -204,7 +205,7 @@ interface BookingFormProps {
   onSearch:  (p: SearchParams) => void;
 }
 
-function BookingForm({ mode, setMode, onSearch }: BookingFormProps): JSX.Element {
+function BookingForm({ mode, setMode, onSearch }: BookingFormProps) {
   const today = new Date().toISOString().split("T")[0];
   const [from,     setFrom]     = useState<string>("Chennai");
   const [to,       setTo]       = useState<string>("Mumbai");
@@ -286,7 +287,7 @@ interface TicketCardProps {
   onBook:     (t: Trip) => void;
 }
 
-function TicketCard({ trip, onBook }: TicketCardProps): JSX.Element {
+function TicketCard({ trip, onBook }: TicketCardProps){
   const urgency =
     trip.seats <= 5
       ? <span style={{ color: "#dc2626" }}>⚡ Only {trip.seats} left!</span>
@@ -345,7 +346,7 @@ interface ResultsSectionProps {
   onBook:     (t: Trip) => void;
 }
 
-function ResultsSection({ mode, from, to, passengers, onBook }: ResultsSectionProps): JSX.Element {
+function ResultsSection({ mode, from, to, passengers, onBook }: ResultsSectionProps) {
   const modeLabel: Record<TransportMode, string> = { bus: "Bus", train: "Train", car: "Car" };
   const trips = TRIPS[mode] ?? [];
 
@@ -376,7 +377,7 @@ interface SeatGridProps {
   onToggle:      (n: number) => void;
 }
 
-function SeatGrid({ selectedSeats, onToggle }: SeatGridProps): JSX.Element {
+function SeatGrid({ selectedSeats, onToggle }: SeatGridProps) {
   return (
     <>
       <div style={S.seatLegend as CSSProperties}>
@@ -417,7 +418,7 @@ interface BookingModalProps {
   onClose:    () => void;
 }
 
-function BookingModal({ trip, passengers, onClose }: BookingModalProps): JSX.Element | null {
+function BookingModal({ trip, passengers, onClose }: BookingModalProps) {
   const [seats,     setSeats]     = useState<number[]>([]);
   const [success,   setSuccess]   = useState<boolean>(false);
   const [bookingId, setBookingId] = useState<string>("");
@@ -534,7 +535,7 @@ function BookingModal({ trip, passengers, onClose }: BookingModalProps): JSX.Ele
 }
 
 // ── Features ──
-function Features(): JSX.Element {
+function Features() {
   const items = [
     { icon: "⚡", title: "Instant Booking",  desc: "Confirm your seat in under 60 seconds with real-time availability." },
     { icon: "🔒", title: "Safe & Secure",     desc: "256-bit encrypted payments with full money-back guarantee."        },
@@ -555,7 +556,7 @@ function Features(): JSX.Element {
 }
 
 // ─── APP ROOT ─────────────────────────────────────────────────────────────────
-export default function App(): JSX.Element {
+export default function App() {
   const [mode,        setMode]        = useState<TransportMode>("bus");
   const [search,      setSearch]      = useState<SearchParams>({ from: "Chennai", to: "Mumbai", passengers: 1 });
   const [showResults, setShowResults] = useState<boolean>(false);
